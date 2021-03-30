@@ -1,0 +1,7 @@
+live-usb-creator (1.0.0) jin; urgency=medium
+
+  * Initial release
+  * fork from https://github.com/MX-Linux/lum-qt-appimage.git
+   - create one package from origin
+
+ -- HamoniKR <pkg@hamonikr.org>  Tue, 30 Mar 2021 14:28:48 +0900

@@ -1,0 +1,6 @@
+[Require admin privilege for Live USB Creator]
+Identity=unix-user:*
+Action=org.hamonikr.pkexec.live-usb-creator
+ResultAny=auth_admin
+ResultInactive=auth_admin
+ResultActive=auth_admin

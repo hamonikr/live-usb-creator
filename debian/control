@@ -1,0 +1,35 @@
+Source: live-usb-creator
+Section: utils
+Priority: optional
+Maintainer: HamoniKR <pkg@hamonikr.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: live-usb-creator
+Architecture: all
+Depends: ${misc:Depends},
+         fuseiso,
+         extlinux, 
+         syslinux-common, 
+         parted, 
+         xorriso, 
+         wamerican, 
+         dict,
+         menu, 
+         xdg-utils | mx-viewer, 
+         libc6 (>= 2.4), 
+         libgcc1 (>= 1:3.0), 
+         libgl1, 
+         libqt5core5a (>= 5.7.0), 
+         libqt5gui5 (>= 5.7.0), 
+         libqt5widgets5 (>= 5.2.0~alpha1), 
+         libstdc++6 (>= 4.1.1)
+Replaces: live-usb-maker-qt,
+          live-usb-maker,
+          cli-shell-utils
+Description: Live USB creator 
+ Create writable USB from ISO file.
+ .
+ 쓰기 가능한 라이브 USB 제작 프로그램.
+
+
