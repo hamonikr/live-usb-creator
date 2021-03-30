@@ -94,6 +94,6 @@ Exec=live-usb-creator
 Terminal=false
 Type=Application
 Icon=live-usb-maker-qt
-Categories=System;
+Categories=GNOME;GTK;Utility;
 NoDisplay=false
 MimeType=application/x-cd-image;
