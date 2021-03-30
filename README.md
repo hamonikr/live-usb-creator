@@ -6,7 +6,13 @@ ISO 이미지로 쓰기 가능한 라이브 USB를 제작하는 프로그램입�
 - 제작된 USB 내 writable 폴더가 생기고 그 안에 자유롭게 데이터를 쓸 수 있습니다.
 - 사용할 USB의 공간을 퍼센트로 지정할 수 있습니다. (남은 공간을 다른 파일시스템 용으로 사용 가능)
 
-지원 : 하모니카 4.0
+# Install
+ * 지원 : 하모니카 4.0
+
+```
+sudo apt update
+sudo apt install live-usb-creator
+```
 
 ## Other OS
  
