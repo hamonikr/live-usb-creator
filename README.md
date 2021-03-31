@@ -1,5 +1,7 @@
 # Live USB Creator
 
+![live usb creator](./images/demo.png)
+
 ISO 이미지로 쓰기 가능한 라이브 USB를 제작하는 프로그램입니다.
 
 - MXLinux 프로젝트에서 사용되는 live-usb-maker 를 하모니카에서 사용하도록 수정한 버전
