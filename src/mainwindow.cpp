@@ -25,6 +25,7 @@
 #include <QScrollBar>
 #include <QTemporaryDir>
 #include <QTextStream>
+#include <QTextStream>
 
 #include "about.h"
 #include "unistd.h"
@@ -374,7 +375,7 @@ void MainWindow::on_buttonNext_clicked()
 
 void MainWindow::on_buttonBack_clicked()
 {
-    this->setWindowTitle("Custom_Program_Name");
+    this->setWindowTitle("Live USB Creator");
     ui->stackedWidget->setCurrentIndex(0);
     ui->buttonNext->setEnabled(true);
     ui->buttonBack->hide();
