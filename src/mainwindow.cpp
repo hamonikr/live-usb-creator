@@ -423,13 +423,17 @@ void MainWindow::on_buttonSelectSource_clicked()
         }
     } else if (ui->cb_clone_mode->isChecked()) {
         selected = QFileDialog::getExistingDirectory(this, tr("Select Source Directory"), QString(QDir::rootPath()), QFileDialog::ShowDirsOnly);
-        if (QFileInfo::exists(selected + "/antiX/linuxfs")|| QFileInfo::exists(selected + "/linuxfs")) {
-            ui->buttonSelectSource->setText(selected);
-            ui->buttonSelectSource->setProperty("filename", selected);
-        } else {
-            selected = (selected == "/") ? "" : selected;
-            QMessageBox::critical(this, tr("Failure"), tr("Could not find %1/antiX/linuxfs file").arg(selected)); // TODO -- the file might be in %/linuxfs too for frugal
-        }
+        // if (QFileInfo::exists(selected + "/antiX/linuxfs")|| QFileInfo::exists(selected + "/linuxfs")) {
+        //     ui->buttonSelectSource->setText(selected);
+        //     ui->buttonSelectSource->setProperty("filename", selected);
+        // } else {
+        //     selected = (selected == "/") ? "" : selected;
+        //     QMessageBox::critical(this, tr("Failure"), tr("Could not find %1/antiX/linuxfs file").arg(selected)); // TODO -- the file might be in %/linuxfs too for frugal
+        // }
+        
+        ui->buttonSelectSource->setText(selected);
+        ui->buttonSelectSource->setProperty("filename", selected);
+        
     }
 }
 

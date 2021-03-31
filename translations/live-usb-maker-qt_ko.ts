@@ -113,7 +113,7 @@
     <message>
         <location filename="../mainwindow.ui" line="351"/>
         <source>Update (only update an existing live-usb)</source>
-        <translation>업데이트(식별된 라이브 USB만 업데이트)</translation>
+        <translation>라이브 USB 업데이트</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="358"/>
@@ -249,12 +249,12 @@
     <message>
         <location filename="../mainwindow.ui" line="754"/>
         <source>clone from a mounted live-usb or iso-file.</source>
-        <translation>마운트 된 ISO 파일에서 복제</translation>
+        <translation>마운트 된 ISO 파일 또는 라이브 USB 에서 복제</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="757"/>
         <source>Clone an existing live system</source>
-        <translation>이미 존재하는 라이브 시스템 복제</translation>
+        <translation>마운트 된 라이브 시스템 복제</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="764"/>
