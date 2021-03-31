@@ -1,3 +1,11 @@
+live-usb-creator (1.1.0) jin; urgency=medium
+
+  * Apply Korean Translation
+  * Rebuild for HamoniKR OS
+   - origin  https://github.com/AdrianTM/mx-live-usb-maker.git
+
+ -- HamoniKR <pkg@hamonikr.org>  Wed, 31 Mar 2021 15:09:26 +0900
+
 live-usb-creator (1.0.0) jin; urgency=medium
 
   * Initial release

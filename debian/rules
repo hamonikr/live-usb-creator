@@ -1,6 +1,30 @@
 #!/usr/bin/make -f
 
+# %:
+# 	dh ${@}
+
+export QT_SELECT=5
+
+QMAKE_OPTS = DEFINES+=NO_DEBUG_ON_CONSOLE
+MAKE_OPTS  = QMAKE=qmake-qt5 LRELEASE=lrelease-qt5 QMAKE_OPTS="$(QMAKE_OPTS)"
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -f translations/*.qm
+
+override_dh_auto_build:
+	lrelease *.pro
+	head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/#define VERSION \"\1\"/" > version.h
+	cp -v translations/*.qm usr/share/live-usb-maker-qt/locale/
+	dh_auto_build -- $(MAKE_OPTS)
+
+override_dh_auto_install:
+	dh_auto_install -- $(MAKE_OPTS)
+
+override_dh_shlibdeps:
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
+
 %:
-	dh ${@}
+	dh $@ --no-automatic-dbgsym --parallel 
 
 override_dh_usrlocal:
