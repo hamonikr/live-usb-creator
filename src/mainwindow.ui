@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>937</width>
+    <width>966</width>
     <height>789</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>KoPubWorld돋움체</family>
+    <pointsize>10</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Program_Name</string>
@@ -163,7 +169,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../images.qrc">:/icons/images/logo.png</pixmap>
+        <pixmap resource="images.qrc">:/icons/images/logo.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -549,13 +555,6 @@
              </item>
              <item>
               <widget class="QLabel" name="label_4">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                 <kerning>true</kerning>
-                </font>
-               </property>
                <property name="text">
                 <string>For distros other than antiX/MX use image mode (dd).</string>
                </property>
@@ -782,7 +781,6 @@
   <tabstop>outputBox</tabstop>
  </tabstops>
  <resources>
-  <include location="../images.qrc"/>
   <include location="images.qrc"/>
  </resources>
  <connections>

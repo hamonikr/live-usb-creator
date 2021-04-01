@@ -157,7 +157,7 @@ void MainWindow::setup()
 //    ui->outputBox->setFont(font);
 
     QFont font;
-    font.setFamily(QString::fromUtf8("Ubuntu 12"));
+    font.setFamily(QString::fromUtf8("NanumGothic 24"));
     ui->outputBox->setFont(font);
 
     ui->groupAdvOptions->hide();

@@ -86,5 +86,5 @@ TRANSLATIONS += translations/live-usb-maker-qt_am.ts \
                 translations/live-usb-maker-qt_zh_TW.ts
 
 RESOURCES += \
-    images.qrc
+    src/images.qrc
 
