@@ -44,16 +44,16 @@ test -d "$domain_dir" && export TEXTDOMAINDIR=$domain_dir
         ESP_LABEL="Live-uefi"
 
           LIVE_MP="/live/boot-dev"
-     LINUXFS_NAME="linuxfs"
+     LINUXFS_NAME="filesystem.squashfs"
  MIN_LINUXFS_SIZE="120M"
-     DEF_BOOT_DIR="antiX"
+     DEF_BOOT_DIR="casper"
 
        CLONE_DIRS="boot EFI efi"
       CLONE_FILES="cdrom.ico version"
- CLONE_BDIR_FILES="{vmlinuz,vmlinuz1,initrd.gz,linuxfs}{,.md5}"
+ CLONE_BDIR_FILES="{vmlinuz,vmlinuz1,initrd.lz,filesystem.squashfs}{,.md5}"
 
        UEFI_FILES="[Ee][Ff][Ii] boot/{grub,uefi-mt} version"
-       BIOS_FILES="[Ee][Ff][Ii] boot/{syslinux,grub,memtest} antiX/{vmlinuz,initrd}* version"
+       BIOS_FILES="[Ee][Ff][Ii] boot/{syslinux,grub,memtest} casper/{vmlinuz,initrd}* version"
 
         GRUB_CONF="boot/grub/grub.cfg"
            CHEATS=""
@@ -1936,7 +1936,8 @@ do_uuids() {
     local dir
     for dir in $bios_dir $main_dir; do
         [ ${#uefi_uuid} -gt 0 ] || continue
-        local uefi_file=$dir/antiX/esp-uuid
+        # local uefi_file=$dir/antiX/esp-uuid
+        local uefi_file=$dir/boot/esp-uuid
         cmd mkdir -p $(dirname $uefi_file) || fatal "Making directory '%s' failed" "$(dirname $uefi_file)"
         cmd write_file $uefi_file $uefi_uuid
     done

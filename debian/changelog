@@ -1,3 +1,10 @@
+live-usb-creator (1.1.2) jin; urgency=medium
+
+  * Update usr/local/bin/live-usb-maker
+    - Remove antiX folder in ISO
+
+ -- HamoniKR <pkg@hamonikr.org>  Wed, 14 Apr 2021 10:40:26 +0900
+
 live-usb-creator (1.1.1) jin; urgency=medium
 
   * Change default font
