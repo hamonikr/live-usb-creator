@@ -311,11 +311,14 @@ void MainWindow::setConnections()
 void MainWindow::setDefaultMode(const QString &iso_name)
 {
     if (!isantiX_mx_family(iso_name)) {
-        ui->rb_dd->click();
-        ui->rb_normal->setChecked(false);
-    } else {
+        // Change Default Mode as USB-RW        
+        // ui->rb_dd->click();
+        // ui->rb_normal->setChecked(false);
         ui->rb_dd->setChecked(false);
-        ui->rb_normal->click();
+        ui->rb_normal->click();        
+    } else {
+        ui->rb_dd->click();
+        ui->rb_normal->setChecked(false);        
     }
 }
 
