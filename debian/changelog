@@ -1,3 +1,10 @@
+live-usb-creator (1.1.3) jin; urgency=medium
+
+  * Update src/mainwindow.cpp
+    - change default mode as iso-rw when start
+
+ -- HamoniKR <pkg@hamonikr.org>  Mon, 19 Apr 2021 09:34:29 +0900
+
 live-usb-creator (1.1.2) jin; urgency=medium
 
   * Update usr/local/bin/live-usb-maker
