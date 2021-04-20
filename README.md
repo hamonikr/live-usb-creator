@@ -1,4 +1,79 @@
+![ubuntu-bionic](https://img.shields.io/badge/ubuntu-18.04-yellow)
+![ubuntu-focal](https://img.shields.io/badge/ubuntu-20.04-red)
+![ubuntu-groovy](https://img.shields.io/badge/ubuntu-20.10-blue)
+![hamonikr-me](https://img.shields.io/badge/hamonikr-me-orange)
+![hamonikr-sun](https://img.shields.io/badge/hamonikr-sun-green)
+![hamonikr-jin](https://img.shields.io/badge/hamonikr-jin-purple)
+
+[English](#Live-USB-Creator) | [한국어](#라이브-USB-제작-도구)
+
 # Live USB Creator
+
+[한국어 바로가기](#라이브-USB-제작-도구)
+
+![live usb creator](./docs/app-1.png)
+
+## upstream projects
+
+ * AppImage : https://github.com/MX-Linux/lum-qt-appimage
+ * live-usb-maker CLI : https://github.com/BitJam/live-usb-maker
+ * live-usb-maker-qt(GUI) : https://github.com/AdrianTM/mx-live-usb-maker
+
+This program can create a writable live USB. So you don't waste space on the USB when creating a bootable USB from an ISO image.
+
+This is a modified version of live-usb-maker used in the MXLinux project to be used in the latest Ubuntu.
+
+A writable folder is created in the created USB, and data can be freely written in it.
+
+You can specify the percentage of space on the USB to be used. (Remaining space can be used for other filesystems)
+
+# Install
+
+* Ubuntu (>=18.04), LinuxMint (>=19), any Ubuntu based Linux
+```
+# Add APT
+curl -sL https://pkg.hamonikr.org/add-hamonikr.apt | sudo -E bash-
+
+sudo apt update
+sudo apt install live-usb-creator
+```
+
+ * Other OS
+
+Using AppImage
+
+ * AppImage : https://github.com/MX-Linux/lum-qt-appimage/releases/tag/19.11.02
+
+You can grant execution permission to the downloaded file and use it as follows.
+
+```
+ sudo ./live-usb-maker-qt-19.11.02.x86_64.AppImage
+```
+
+# Usage
+
+When you run the program, the following screen will appear.
+(More settings available by selecting `Show advanced options` button)
+
+![live usb creator](./docs/app-2.png)
+
+1) Plug in USB and select a USB device to create bootable USB. If the attached USB is not displayed in the USB device list, click the `Refresh drive list` button to update the list.
+
+2) Click the `Select ISO` button to select the desired ISO image.
+
+3) You must select 'Writable Live USB method' to write data to USB. If you select'Read Only' here, it proceeds in the same way as making a normal bootable USB.
+
+4) In `Percent of USB-device to use (%)`, enter the space you want to use for production as a percentage. The percentage remaining is created as unpartitioned space.
+
+5) Click the `Next` button to proceed with live USB production. The process of creating a live writable USB takes slightly longer than the typical USB creation process.
+
+6) If you check the contents of the USB that has been produced, a `writable` folder is created as shown in the following image, and you can freely read and write data.
+
+<hr>
+
+# 라이브 USB 제작 도구
+
+[Go to English](#Live-USB-Creator)
 
 ![live usb creator](./images/demo.png)
 
@@ -10,9 +85,13 @@ ISO 이미지로 쓰기 가능한 라이브 USB를 제작하는 프로그램입�
 
 # Install
 
- * 지원 OS : 하모니카 4.0
+ * 지원 OS : 우분투 18.04 이상, 하모니카 3.0 이상
 
 ```
+# Add APT
+curl -sL https://pkg.hamonikr.org/add-hamonikr.apt | sudo -E bash-
+
+
 sudo apt update
 sudo apt install live-usb-creator
 ```
