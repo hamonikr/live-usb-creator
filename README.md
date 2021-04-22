@@ -127,6 +127,13 @@ sudo apt install live-usb-creator
 ## 라이브 USB 부팅 후 데이터 저장 
 
 만약 위의 4번 과정에서 퍼센트를 수동으로 설정해서 USB 안에 빈 공간이 있는 경우에는 하모니카 라이브 USB 로 부팅을 한 상태에서 남은 빈 공간에 데이터를 저장할 수 있습니다. 
+
+우선, USB에 생성된 빈 공간을 사용하기 위해 파티션을 할당해 주세요. 아래는 빈 공간에 fat32 파티션을 할당한 모습입니다.
+
+![image](https://user-images.githubusercontent.com/55476302/115667921-5e1d0180-a381-11eb-982c-08dc05eb2cd8.png)
+
+이후, 해당 USB로 라이브 부팅을 하고, 아래 명령어로 mydata 폴더를 생성하여 데이터를 저장합니다.
+
 ```
 # 하모니카 라이브 USB로 부팅 후 터미널을 열고(Ctrl+Alt+T) 다음과 같이 실행
 sudo mkdir /var/log/mydata
