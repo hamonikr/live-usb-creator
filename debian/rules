@@ -1,7 +1,8 @@
 #!/usr/bin/make -f
 
+# Uncomment this line if needed for building the package with specific options
 # %:
-# 	dh ${@}
+#     dh ${@}
 
 export QT_SELECT=5
 
@@ -15,6 +16,7 @@ override_dh_auto_clean:
 override_dh_auto_build:
 	lrelease *.pro
 	head -n1 debian/changelog | sed -e "s/.*(\([^(]*\)).*/#define VERSION \"\1\"/" > version.h
+	mkdir -p usr/share/live-usb-maker-qt/locale/
 	cp -v translations/*.qm usr/share/live-usb-maker-qt/locale/
 	dh_auto_build -- $(MAKE_OPTS)
 
@@ -25,6 +27,6 @@ override_dh_shlibdeps:
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info
 
 %:
-	dh $@ --no-automatic-dbgsym --parallel 
+	dh $@ --no-automatic-dbgsym --parallel
 
 override_dh_usrlocal:
