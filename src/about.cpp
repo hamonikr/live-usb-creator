@@ -4,32 +4,36 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include <QVBoxLayout>
+#include <QDebug>
 
 #include "about.h"
 #include "cmd.h"
 
-// display doc as nomal user when run as root
-void displayDoc(QString url, QString title, bool runned_as_root)
-{
+// display doc as normal user when run as root
+void displayDoc(QString url, QString title, bool runned_as_root) {
     if (system("command -v mx-viewer >/dev/null") == 0) {
-        system("mx-viewer " + url.toUtf8() + " \"" + title.toUtf8() + "\"&");
+        if (system(("mx-viewer " + url.toUtf8() + " \"" + title.toUtf8() + "\"&").toStdString().c_str()) != 0) {
+            qWarning() << "Failed to execute mx-viewer";
+        }
     } else {
         if (!runned_as_root) {
-            system("DISPLAY=$DISPLAY xdg-open " + url.toUtf8());
+            if (system(("DISPLAY=$DISPLAY xdg-open " + url.toUtf8()).toStdString().c_str()) != 0) {
+                qWarning() << "Failed to open URL as normal user";
+            }
         } else {
             Cmd cmd;
-            QString user = cmd.getCmdOut("logname", true);
-            system("runuser -l " + user.toUtf8() + " -c \"env XDG_RUNTIME_DIR=/run/user/$(id -u " +
-                   user.toUtf8() + ") DISPLAY=$DISPLAY xdg-open " + url.toUtf8() + "\"&");
+            QString user = cmd.getCmdOut("logname", true).trimmed();
+            if (system(("runuser -l " + user.toUtf8() + " -c \"env XDG_RUNTIME_DIR=/run/user/$(id -u " +
+                        user.toUtf8() + ") DISPLAY=$DISPLAY xdg-open " + url.toUtf8() + "\"&").toStdString().c_str()) != 0) {
+                qWarning() << "Failed to open URL as root user";
+            }
         }
     }
 }
 
-void displayAboutMsgBox(QString title, QString message, QString licence_url, QString license_title, bool runned_as_root)
-{
+void displayAboutMsgBox(QString title, QString message, QString licence_url, QString license_title, bool runned_as_root) {
     QMessageBox msgBox(QMessageBox::NoIcon, title, message);
-    // QPushButton *btnLicense = msgBox.addButton(QApplication::tr("License"), QMessageBox::HelpRole);
-    QPushButton *btnLicense;
+    QPushButton *btnLicense = msgBox.addButton(QApplication::tr("License"), QMessageBox::HelpRole);
     QPushButton *btnChangelog = msgBox.addButton(QApplication::tr("Changelog"), QMessageBox::HelpRole);
     QPushButton *btnCancel = msgBox.addButton(QApplication::tr("Cancel"), QMessageBox::NoRole);
     btnCancel->setIcon(QIcon::fromTheme("window-close"));

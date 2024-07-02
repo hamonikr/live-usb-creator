@@ -1,25 +1,3 @@
-/**********************************************************************
- *  main.cpp
- **********************************************************************
- * Copyright (C) 2017 MX Authors
- *
- * Authors: Adrian
- *          MX Linux <http://mxlinux.org>
- *
- * This is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this package. If not, see <http://www.gnu.org/licenses/>.
- **********************************************************************/
-
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QDateTime>
@@ -34,12 +12,10 @@
 #include <version.h>
 #include <unistd.h>
 
-
 static QScopedPointer<QFile> logFile;
 void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
     app.setApplicationVersion(VERSION);
 
@@ -73,7 +49,9 @@ int main(int argc, char *argv[])
 
     if (getuid() == 0) {
         QString log_name= "/var/log/live-usb-creator.log";
-        system("[ -f " + log_name.toUtf8() + " ] && mv " + log_name.toUtf8() + " " + log_name.toUtf8() + ".old");
+        if (system("[ -f " + log_name.toUtf8() + " ] && mv " + log_name.toUtf8() + " " + log_name.toUtf8() + ".old") != 0) {
+            qWarning() << "Failed to move log file";
+        }
         logFile.reset(new QFile(log_name));
         logFile.data()->open(QFile::Append | QFile::Text);
         qInstallMessageHandler(messageHandler);
@@ -83,14 +61,14 @@ int main(int argc, char *argv[])
         w.show();
         return app.exec();
     } else {
-        system("su-to-root -X -c " + app.applicationFilePath().toUtf8() + "&");
+        if (system("su-to-root -X -c " + app.applicationFilePath().toUtf8() + "&") != 0) {
+            qWarning() << "Failed to switch to root";
+        }
     }
 }
 
-
 // The implementation of the handler
-void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
+void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
     QTextStream term_out(stdout);
     term_out << msg << QStringLiteral("\n");
 
@@ -104,5 +82,5 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
     case QtCriticalMsg: out << QStringLiteral("CRT "); break;
     case QtFatalMsg:    out << QStringLiteral("FTL "); break;
     }
-    out << context.category << QStringLiteral(": ") << msg << endl;
+    out << context.category << QStringLiteral(": ") << msg << Qt::endl;
 }

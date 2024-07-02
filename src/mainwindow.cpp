@@ -1,11 +1,9 @@
 /**********************************************************************
  *  mainwindow.cpp
  **********************************************************************
- * Copyright (C) 2017 MX Authors
- *
- * Authors: Adrian
- *          MX Linux <http://mxlinux.org>
- *
+ * Copyright (C) 2017 MX Authors (Adrian)
+ * Copyright (C) 2018-2024 Kevin Kim
+ *  
  * This is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -152,12 +150,8 @@ void MainWindow::setup()
     connect(qApp, &QApplication::aboutToQuit, this, &MainWindow::cleanup);
     this->setWindowTitle("Live USB Creator");
 
-//    QFont font("monospace");
-//    font.setStyleHint(QFont::Monospace);
-//    ui->outputBox->setFont(font);
-
     QFont font;
-    font.setFamily(QString::fromUtf8("NanumGothic 24"));
+    font.setFamily(QString::fromUtf8("Pretendard 24"));
     ui->outputBox->setFont(font);
 
     ui->groupAdvOptions->hide();
@@ -248,7 +242,9 @@ void MainWindow::cleanup()
     QFileInfo logfile("/tmp/" + lum.baseName() + ".log");
     if ( logfile.exists() ) {
         QString removecmd = "rm -f " + logfile.absoluteFilePath();
-        system(removecmd.toUtf8());
+        if (system(removecmd.toUtf8()) == -1) {
+            qDebug() << "Failed to execute command:" << removecmd;
+        }
     }
     cmd.halt();
 }
@@ -304,7 +300,7 @@ void MainWindow::setConnections()
     connect(&cmd, &QProcess::readyRead, this, &MainWindow::updateOutput);
     connect(&cmd, &QProcess::started, this, &MainWindow::cmdStart);
     connect(&timer, &QTimer::timeout, this, &MainWindow::updateBar);
-    connect(&cmd, static_cast<void (QProcess::*)(int)>(&QProcess::finished), this, &MainWindow::cmdDone);
+    connect(&cmd, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(&QProcess::finished), this, &MainWindow::cmdDone);
 }
 
 // set proper default mode based on iso contents
@@ -426,17 +422,8 @@ void MainWindow::on_buttonSelectSource_clicked()
         }
     } else if (ui->cb_clone_mode->isChecked()) {
         selected = QFileDialog::getExistingDirectory(this, tr("Select Source Directory"), QString(QDir::rootPath()), QFileDialog::ShowDirsOnly);
-        // if (QFileInfo::exists(selected + "/antiX/linuxfs")|| QFileInfo::exists(selected + "/linuxfs")) {
-        //     ui->buttonSelectSource->setText(selected);
-        //     ui->buttonSelectSource->setProperty("filename", selected);
-        // } else {
-        //     selected = (selected == "/") ? "" : selected;
-        //     QMessageBox::critical(this, tr("Failure"), tr("Could not find %1/antiX/linuxfs file").arg(selected)); // TODO -- the file might be in %/linuxfs too for frugal
-        // }
-        
         ui->buttonSelectSource->setText(selected);
         ui->buttonSelectSource->setProperty("filename", selected);
-        
     }
 }
 
@@ -463,26 +450,11 @@ void MainWindow::on_buttonOptions_clicked()
     }
 }
 
-//void MainWindow::on_buttonEnter_clicked()
-//{
-//    on_lineEdit_returnPressed();
-//}
-
 void MainWindow::on_edit_label_textChanged(QString arg1)
 {
     ui->edit_label->setText(arg1.remove(" "));
     ui->edit_label->setCursorPosition(arg1.length());
 }
-
-//void MainWindow::on_lineEdit_returnPressed()
-//{
-//    cmd->writeToProc(ui->lineEdit->text());
-//    if (!(ui->lineEdit->text().size() == 1 && (ui->lineEdit->text() == "q" || ui->lineEdit->text() == "h"))) {
-//        cmd->writeToProc("\n"); // don't send new line for q and h interactive options
-//    }
-//    ui->lineEdit->clear();
-//    ui->lineEdit->setFocus();
-//}
 
 void MainWindow::on_cb_update_clicked(bool checked)
 {
@@ -586,7 +558,9 @@ bool MainWindow::isantiX_mx_family(QString selected)
 
     // check for antiX folder - this is a BS check but works for now since no antiX family iso doens't have an antiX folder
     bool test = QFileInfo::exists(tmpdir.path() + "/antiX");
-    system("umount " + tmpdir.path().toUtf8());
+    if (system(("umount " + tmpdir.path()).toUtf8()) == -1) {
+        qDebug() << "Failed to unmount temp folder";
+    }
     return test;
 }
 
@@ -606,7 +580,9 @@ void MainWindow::on_pushButtonLumLogFile_clicked()
 
     // generate temporary log file
     cmd = "tac /var/log/" + lum.baseName() + ".log | sed \"/^=\\{60\\}=*$/q\" > /tmp/" + lum.baseName() + ".log";
-    system(cmd.toUtf8());
+    if (system(cmd.toUtf8()) == -1) {
+        qDebug() << "Failed to execute command:" << cmd;
+    }
 
     if (getuid() == 0)
         rootrunoption = "runuser -l $(logname) -c ";
@@ -617,5 +593,7 @@ void MainWindow::on_pushButtonLumLogFile_clicked()
         cmd = QString("antix-viewer %1 '%2' &").arg(url).arg(lum.baseName());
     else
         cmd = QString(rootrunoption + "\"DISPLAY=$DISPLAY xdg-open %1\" &").arg(url);
-    system(cmd.toUtf8());
+    if (system(cmd.toUtf8()) == -1) {
+        qDebug() << "Failed to execute command:" << cmd;
+    }
 }
