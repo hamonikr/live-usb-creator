@@ -151,7 +151,8 @@ void MainWindow::setup()
     this->setWindowTitle("Live USB Creator");
 
     QFont font;
-    font.setFamily(QString::fromUtf8("Pretendard 24"));
+    font.setFamily(QString::fromUtf8("Pretendard"));
+    font.setPointSize(24);
     ui->outputBox->setFont(font);
 
     ui->groupAdvOptions->hide();
@@ -388,10 +389,7 @@ void MainWindow::on_buttonAbout_clicked()
 {
     this->hide();
     displayAboutMsgBox(tr("About %1").arg(this->windowTitle()), "<p align=\"center\"><b><h2>" + this->windowTitle() +"</h2></b></p><p align=\"center\">" +
-                       tr("Version: ") + qApp->applicationVersion() + "</p><p align=\"center\"><h3>" +
-                       tr("Program for creating a live-usb from an iso-file, another live-usb, a live-cd/dvd, or a running live system.") +
-                       "</h3></p><p align=\"center\"><a href=\"http://mxlinux.org\">http://mxlinux.org</a><br /></p><p align=\"center\">" +
-                       tr("Copyright (c) MX Linux") + "<br /><br /></p>",
+                       tr("Version: ") + qApp->applicationVersion() + "<br /><br /></p>",
                        "/usr/share/doc/live-usb-creator/license.html", tr("%1 License").arg(this->windowTitle()), true);
     this->show();
 }

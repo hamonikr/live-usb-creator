@@ -7,8 +7,7 @@ Standards-Version: 3.9.5
 
 Package: live-usb-creator
 Architecture: all
-Depends: ${misc:Depends},
-         fuseiso,
+Depends: fuseiso,
          extlinux, 
          syslinux-common, 
          parted, 
@@ -31,5 +30,3 @@ Description: Live USB creator
  Create writable USB from ISO file.
  .
  쓰기 가능한 라이브 USB 제작 프로그램.
-
-

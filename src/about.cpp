@@ -32,6 +32,13 @@ void displayDoc(QString url, QString title, bool runned_as_root) {
 }
 
 void displayAboutMsgBox(QString title, QString message, QString licence_url, QString license_title, bool runned_as_root) {
+    QString copyrightInfo = "<p align=\"center\">Copyright 2017 MX Linux</p>";
+    QString hamonikrInfo = "<p align=\"center\">Copyright 2018-2024 HamoniKR</p>";
+    QString newLink = "<p align=\"center\"><a href=\"http://hamonikr.org\">http://hamonikr.org</a><br /></p>";
+
+    // 메시지에 저작권 정보와 새로운 링크 추가
+    message += newLink + copyrightInfo + hamonikrInfo;
+
     QMessageBox msgBox(QMessageBox::NoIcon, title, message);
     QPushButton *btnLicense = msgBox.addButton(QApplication::tr("License"), QMessageBox::HelpRole);
     QPushButton *btnChangelog = msgBox.addButton(QApplication::tr("Changelog"), QMessageBox::HelpRole);
@@ -50,7 +57,7 @@ void displayAboutMsgBox(QString title, QString message, QString licence_url, QSt
         QTextEdit *text = new QTextEdit;
         text->setReadOnly(true);
         Cmd cmd;
-        text->setText(cmd.getCmdOut("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName()  + "/changelog.gz"));
+        text->setText(cmd.getCmdOut("zless /usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"));
 
         QPushButton *btnClose = new QPushButton(QApplication::tr("&Close"));
         btnClose->setIcon(QIcon::fromTheme("window-close"));
