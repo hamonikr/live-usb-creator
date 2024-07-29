@@ -1,3 +1,10 @@
+live-usb-creator (1.2.0+hamonikr2) paektu; urgency=medium
+
+  [Kevin Kim]
+  * Release for HamoniKR paektu
+
+ -- HamoniKR <pkg@hamonikr.org>  Mon, 29 Jul 2024 15:18:59 +0900
+
 live-usb-creator (1.2.0+hamonikr1) stable; urgency=medium
 
   * Release in ubuntu 24.04
